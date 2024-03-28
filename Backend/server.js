@@ -32,6 +32,8 @@ app.use(cookieParser());
 app.use(cors(corsOption));
 
 app.use("/", require("./routes/root"));
+app.use("/users", require("./routes/users"));
+app.use("/notes", require("./routes/notes"));
 
 app.all("*", (req, res) => {
   res.status(404);
@@ -58,6 +60,6 @@ mongoose.connection.on("error", (err) => {
   console.log(err);
   logEvent(
     `${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,
-    "mongoLog"
+    "mongoLog.log"
   );
 });
