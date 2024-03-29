@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-const Layout = () => {
+const DashLayout = () => {
   return (
     <div>
       <Outlet />
@@ -9,4 +9,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default DashLayout;

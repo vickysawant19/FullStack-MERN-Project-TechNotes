@@ -9,14 +9,27 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import Layout from "./Layout.jsx";
+import Layout from "./pages/public/Layout.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store/store.js";
+import Login from "./pages/public/Login.jsx";
+import Signup from "./pages/public/Signup.jsx";
+import DashLayout from "./pages/dashboard/DashLayout.jsx";
+import DashHome from "./pages/dashboard/DashHome.jsx";
+import Users from "./pages/dashboard/Users.jsx";
+import Notes from "./pages/dashboard/Notes.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="" element={<Layout />}>
-      <Route path="/" element={<App />} />
+      <Route index element={<App />} />
+      <Route path="login" element={<Login />} />
+      <Route path="signup" element={<Signup />} />
+      <Route path="dash" element={<DashLayout />}>
+        <Route index element={<DashHome />} />
+        <Route path="users" element={<Users />} />
+        <Route path="notes" element={<Notes />} />
+      </Route>
     </Route>
   )
 );
