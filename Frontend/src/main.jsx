@@ -11,13 +11,14 @@ import {
 } from "react-router-dom";
 import Layout from "./pages/public/Layout.jsx";
 import { Provider } from "react-redux";
-import { store } from "./store/store.js";
+
 import Login from "./pages/public/Login.jsx";
 import Signup from "./pages/public/Signup.jsx";
 import DashLayout from "./pages/dashboard/DashLayout.jsx";
 import DashHome from "./pages/dashboard/DashHome.jsx";
-import Users from "./pages/dashboard/Users.jsx";
-import Notes from "./pages/dashboard/Notes.jsx";
+import Users from "./features/users/Users.jsx";
+import Notes from "./features/notes/Notes.jsx";
+import { store } from "./app/store.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

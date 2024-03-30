@@ -4,8 +4,22 @@ import NoteCard from "./NoteCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {
+  useGetFeaturedNotesQuery,
+  useGetRecentNotesQuery,
+  useGetUserNotesQuery,
+} from "../../features/notes/featuredNotesApi";
 
 const DashHome = () => {
+  const { data: recentNotes, isLoading: recentLoading } =
+    useGetRecentNotesQuery();
+  const { data: featuredNotes, isLoading: featuredLoading } =
+    useGetFeaturedNotesQuery();
+  const { data: userNotes, isLoading: userLoading } = useGetUserNotesQuery(
+    "6602a6a8e218bbedaa3e908d"
+  );
+
+  // console.log(recentNotes, featuredNotes, userNotes);
   var settings = {
     dots: false,
     infinite: false,
@@ -56,10 +70,12 @@ const DashHome = () => {
         </div>
         <div className="rounded-xl overflow-hidden my-2">
           <Slider {...settings}>
-            <NoteCard />
-            <NoteCard />
-            <NoteCard />
-            <NoteCard />
+            {recentNotes &&
+              recentNotes.map((note) => (
+                <div key={note.id}>
+                  <NoteCard note={note} />
+                </div>
+              ))}
           </Slider>
         </div>
       </div>
@@ -75,10 +91,12 @@ const DashHome = () => {
         </div>
         <div className="rounded-xl overflow-hidden my-2">
           <Slider {...settings}>
-            <NoteCard />
-            <NoteCard />
-            <NoteCard />
-            <NoteCard />
+            {featuredNotes &&
+              featuredNotes.map((note) => (
+                <div key={note.id}>
+                  <NoteCard note={note} />
+                </div>
+              ))}
           </Slider>
         </div>
       </div>
@@ -92,10 +110,12 @@ const DashHome = () => {
         </div>
         <div className="rounded-xl overflow-hidden my-2">
           <Slider {...settings}>
-            <NoteCard />
-            <NoteCard />
-            <NoteCard />
-            <NoteCard />
+            {userNotes &&
+              userNotes.map((note) => (
+                <div key={note.id}>
+                  <NoteCard note={note} />
+                </div>
+              ))}
           </Slider>
         </div>
       </div>

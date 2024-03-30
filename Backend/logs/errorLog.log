@@ -12,3 +12,7 @@
 20240328	19:35:00	d962e158-ec47-443b-b7db-288c286ce37a	Error	Cannot set headers after they are sent to the client	DELETE	/notes	undefined
 20240328	19:36:05	24cc9ab5-d369-4b99-9106-362edaeb3615	Error	Cannot set headers after they are sent to the client	DELETE	/notes	undefined
 20240328	19:55:25	d543421e-a1b8-486a-add4-f396356560de	CastError	Cast to ObjectId failed for value "10" (type string) at path "_id" for model "Note"	GET	/notes/10	undefined
+20240330	15:14:34	3ec63307-9667-4c1f-b6a4-37448b256d60	Error	Not allowed by origin	GET	/users	http://localhost:5173
+20240330	15:14:36	fef2ac7e-cfb6-4526-91c0-1c3fb8cf7bc8	Error	Not allowed by origin	GET	/users	http://localhost:5173
+20240331	00:44:46	0af312f1-d48e-43f6-87ce-f275584856cb	SyntaxError	Unexpected token ']', ..."manager", ]
+}" is not valid JSON	POST	/users	undefined

@@ -1,6 +1,7 @@
 const asynchandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
+const expressAsyncHandler = require("express-async-handler");
 
 // Get all users
 const getUsers = async (req, res) => {
@@ -127,4 +128,18 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, createUser, updateUser, deleteUser };
+const getUser = expressAsyncHandler(async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const user = await User.findById(userId).select("-password");
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+module.exports = { getUser, getUsers, createUser, updateUser, deleteUser };
