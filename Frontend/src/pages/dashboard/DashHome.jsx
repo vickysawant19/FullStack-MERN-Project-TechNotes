@@ -16,7 +16,7 @@ const DashHome = () => {
   const { data: featuredNotes, isLoading: featuredLoading } =
     useGetFeaturedNotesQuery();
   const { data: userNotes, isLoading: userLoading } = useGetUserNotesQuery(
-    "6602a6a8e218bbedaa3e908d"
+    "66099feffd301034d24eb7cf"
   );
 
   // console.log(recentNotes, featuredNotes, userNotes);
@@ -53,6 +53,13 @@ const DashHome = () => {
       //   },
     ],
   };
+  if (userLoading || featuredLoading || recentLoading) {
+    return (
+      <>
+        <div>Loading..</div>
+      </>
+    );
+  }
 
   return (
     <div className="max-w-screen-xl mx-auto min-h-screen ">
@@ -72,7 +79,7 @@ const DashHome = () => {
           <Slider {...settings}>
             {recentNotes &&
               recentNotes.map((note) => (
-                <div key={note.id}>
+                <div key={note._id}>
                   <NoteCard note={note} />
                 </div>
               ))}
@@ -93,7 +100,7 @@ const DashHome = () => {
           <Slider {...settings}>
             {featuredNotes &&
               featuredNotes.map((note) => (
-                <div key={note.id}>
+                <div key={note._id}>
                   <NoteCard note={note} />
                 </div>
               ))}
@@ -111,8 +118,8 @@ const DashHome = () => {
         <div className="rounded-xl overflow-hidden my-2">
           <Slider {...settings}>
             {userNotes &&
-              userNotes.map((note) => (
-                <div key={note.id}>
+              userNotes.map((note, index) => (
+                <div key={note._id}>
                   <NoteCard note={note} />
                 </div>
               ))}

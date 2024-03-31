@@ -12,7 +12,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: () => "/users",
-      keepUnusedDataFor: 5,
+      // keepUnusedDataFor: 5,
       transformResponse: (responsData) => {
         const data = responsData.map((data) => {
           data.id = data._id;
@@ -31,10 +31,33 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+    addUser: builder.mutation({
+      query: (body) => ({
+        url: "/users",
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: [{ type: "user", id: "LIST" }],
+    }),
+
+    updateUser: builder.mutation({
+      query: (body) => ({ url: "/users", method: "PATCH", body: body }),
+      invalidatesTags: (result, error, arg) => [{ type: "user", id: arg._id }],
+    }),
+
+    deleteUser: builder.mutation({
+      query: (body) => ({ url: "/users", method: "DELETE", body: body }),
+      invalidatesTags: (result, error, arg) => [{ type: "user", id: arg._id }],
+    }),
   }),
 });
 
-export const { useGetUsersQuery } = usersApiSlice;
+export const {
+  useGetUsersQuery,
+  useAddUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+} = usersApiSlice;
 
 export const selectUsersResult = usersApiSlice.endpoints.getUsers.select();
 

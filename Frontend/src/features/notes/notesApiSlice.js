@@ -3,7 +3,7 @@ import { apiSlice } from "../../app/api/apiSlice";
 
 const notesAdaptor = createEntityAdapter({
   selectId: (note) => note.id,
-  sortComparer: (a, b) => a._id.localeCompare(b._id),
+  sortComparer: (a, b) => b.ticket - a.ticket,
 });
 
 const initialState = notesAdaptor.getInitialState();
@@ -31,10 +31,34 @@ export const notesApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    addNote: builder.mutation({
+      query: (body) => ({
+        url: "/notes",
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: [{ type: "note", id: "LIST" }],
+    }),
+
+    updateNote: builder.mutation({
+      query: (body) => ({ url: "/notes", method: "PATCH", body }),
+      invalidatesTags: (result, error, arg) => [{ type: "note", id: arg._id }],
+    }),
+
+    deleteNote: builder.mutation({
+      query: (id) => ({ url: "/notes", method: "DELETE", body: id }),
+      invalidatesTags: (result, error, arg) => [{ type: "note", id: arg._id }],
+    }),
   }),
 });
 
-export const { useGetNotesQuery } = notesApiSlice;
+export const {
+  useGetNotesQuery,
+  useAddNoteMutation,
+  useUpdateNoteMutation,
+  useDeleteNoteMutation,
+} = notesApiSlice;
 
 export const selectNotesResult = notesApiSlice.endpoints.getNotes.select();
 

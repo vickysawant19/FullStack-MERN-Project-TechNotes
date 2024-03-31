@@ -2,7 +2,7 @@ const asynchandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const expressAsyncHandler = require("express-async-handler");
-
+const Note = require("../models/Note");
 // Get all users
 const getUsers = async (req, res) => {
   try {
@@ -16,21 +16,34 @@ const getUsers = async (req, res) => {
 
 // Create a new user
 const createUser = async (req, res) => {
-  const { username, password, roles } = req.body;
-  if (!username || !password || !Array.isArray(roles) || !roles.length) {
-    return res.status(409).json({ error: "all field required" });
+  const { username, email, password, roles } = req.body;
+  if (
+    !email ||
+    !username ||
+    !password ||
+    !Array.isArray(roles) ||
+    !roles.length
+  ) {
+    return res.status(409).json({ error: "All field required" });
   }
 
   try {
     // find dublicate
-    const dublicate = await User.findOne({ username }).exec();
+    const dublicate = await User.findOne({ email }).exec();
     if (dublicate) {
-      return res.status(400).json({ message: "username already exits" });
+      return res.status(400).json({ message: "Email already exits" });
+    }
+
+    // Check if duplicate username exists
+    const duplicateUsername = await User.findOne({ username }).exec();
+    if (duplicateUsername) {
+      return res.status(400).json({ message: "Username already exists" });
     }
 
     const hasedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
+      email,
       username,
       password: hasedPassword,
       roles,
@@ -48,7 +61,7 @@ const createUser = async (req, res) => {
 
 // update user controller
 const updateUser = async (req, res) => {
-  const { username, password, _id, roles, active } = req.body;
+  const { email, username, password, _id, roles, active } = req.body;
 
   // Check if _id is provided
   if (!_id) {
@@ -68,9 +81,17 @@ const updateUser = async (req, res) => {
     if (username && username !== user.username) {
       const duplicate = await User.findOne({ username }).exec();
       if (duplicate) {
-        return res.status(409).json({ error: "Username already exists" });
+        return res.status(400).json({ error: "username already exists" });
       }
       user.username = username;
+    }
+    // Check if email is provided and not taken by another user
+    if (email && email !== user.email) {
+      const duplicateEmail = await User.findOne({ email }).exec();
+      if (duplicateEmail) {
+        return res.status(400).json({ error: "Email already exists" });
+      }
+      user.email = email;
     }
 
     // Update roles if provided
@@ -107,7 +128,6 @@ const deleteUser = async (req, res) => {
   if (!_id) {
     return res.status(400).json({ error: "ID not provided" });
   }
-
   try {
     // Find the user by _id
     const user = await User.findById(_id).select("-password").exec();
@@ -115,6 +135,12 @@ const deleteUser = async (req, res) => {
     // Check if user exists
     if (!user) {
       return res.status(404).json({ error: "User not found" });
+    }
+
+    const notes = await Note.find({ user: _id }).exec();
+
+    if (notes.length > 0) {
+      return res.status(409).json({ message: "User got note assigned" });
     }
 
     // Delete the user

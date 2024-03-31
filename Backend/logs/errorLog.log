@@ -16,3 +16,10 @@
 20240330	15:14:36	fef2ac7e-cfb6-4526-91c0-1c3fb8cf7bc8	Error	Not allowed by origin	GET	/users	http://localhost:5173
 20240331	00:44:46	0af312f1-d48e-43f6-87ce-f275584856cb	SyntaxError	Unexpected token ']', ..."manager", ]
 }" is not valid JSON	POST	/users	undefined
+20240331	16:25:11	b1214a44-b16f-4a34-9256-277e9a076fb0	TypeError	res is not a function	POST	/notes	http://localhost:5173
+20240331	16:25:38	0d433857-19ab-4e54-a7fa-df758223ebb8	TypeError	res is not a function	POST	/notes	http://localhost:5173
+20240331	16:27:17	35ab012b-1b5d-4d89-b2b0-bb11efe09ef6	TypeError	res is not a function	POST	/notes	http://localhost:5173
+20240331	16:27:26	35954e50-da98-4482-b47e-f3096e348c82	TypeError	res is not a function	POST	/notes	http://localhost:5173
+20240331	16:28:03	77bfffd6-e8e3-4dbe-883a-994bf3ee9ba6	TypeError	res is not a function	POST	/notes	http://localhost:5173
+20240331	16:31:51	3c9421db-3c09-4275-976d-49d2c8854072	TypeError	res is not a function	POST	/notes	http://localhost:5173
+20240331	16:32:50	85c91387-e240-4c17-8aff-330d4d32f218	TypeError	res is not a function	POST	/notes	http://localhost:5173
