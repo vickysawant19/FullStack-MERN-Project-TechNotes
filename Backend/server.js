@@ -29,7 +29,8 @@ app.use(express.urlencoded({ extended: true }));
 //3rd party Middleware
 app.use(cookieParser());
 
-app.use(cors(corsOption));
+// app.use(cors(corsOption));
+app.use(cors());
 
 app.use("/", require("./routes/root"));
 app.use("/users", require("./routes/users"));

@@ -23,6 +23,7 @@ import NoteForm from "./features/notes/NoteForm.jsx";
 import Users from "./features/users/Users.jsx";
 
 import UserForm from "./features/users/UserForm.jsx";
+import Prefetch from "./pages/dashboard/Prefetch.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,19 +31,21 @@ const router = createBrowserRouter(
       <Route index element={<App />} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
-      <Route path="dash" element={<DashLayout />}>
-        <Route index element={<DashHome />} />
+      <Route element={<Prefetch />}>
+        <Route path="dash" element={<DashLayout />}>
+          <Route index element={<DashHome />} />
 
-        <Route path="users">
-          <Route index element={<Users />} />
-          <Route path="new" element={<UserForm />} />
-          <Route path="edit/:id" element={<UserForm />} />
-        </Route>
+          <Route path="users">
+            <Route index element={<Users />} />
+            <Route path="new" element={<UserForm />} />
+            <Route path="edit/:id" element={<UserForm />} />
+          </Route>
 
-        <Route path="notes">
-          <Route index element={<Notes />} />
-          <Route path="new" element={<NoteForm />} />
-          <Route path="edit/:id" element={<NoteForm />} />
+          <Route path="notes">
+            <Route index element={<Notes />} />
+            <Route path="new" element={<NoteForm />} />
+            <Route path="edit/:id" element={<NoteForm />} />
+          </Route>
         </Route>
       </Route>
     </Route>

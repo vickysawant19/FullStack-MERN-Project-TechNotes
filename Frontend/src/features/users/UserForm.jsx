@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -11,11 +11,11 @@ import {
 } from "./usersApiSlice";
 
 const UserForm = () => {
-  const { data: userData, isLoading } = useGetUsersQuery();
   const { id } = useParams();
+  const [errorMessage, setErrorMessage] = useState(""); // State to store the error message
 
   const user = useSelector((state) => selectUserById(state, id));
-  console.log(user);
+
   const {
     register,
     handleSubmit,
@@ -36,7 +36,12 @@ const UserForm = () => {
 
   const [
     addUser,
-    { data: addData, isLoading: addLoading, isSuccess: addSuccess },
+    {
+      data: addData,
+      isLoading: addLoading,
+      isSuccess: addSuccess,
+      error: addError,
+    },
   ] = useAddUserMutation();
 
   const [
@@ -53,11 +58,14 @@ const UserForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    data.active = data.active === "true";
+    setErrorMessage("");
     try {
       if (!user) {
         const result = await addUser(data);
+
         if (result.error) {
-          console.log(result.error);
+          setErrorMessage(result.error.data.message); // Set the error message
         }
 
         if (result.data) {
@@ -66,9 +74,8 @@ const UserForm = () => {
       } else {
         const newData = { ...data, _id: user.id };
         const result = await updateUser(newData);
-
         if (result.error) {
-          console.log(result.error);
+          setErrorMessage(result.error.data.error);
         }
 
         if (result.data) {
@@ -80,12 +87,6 @@ const UserForm = () => {
     }
   };
 
-  useEffect(() => {}, [isLoading]);
-
-  if (isLoading) {
-    return null;
-  }
-
   return (
     <div className="w-full flex justify-center mt-10 min-h-screen max-w-screen-md mx-auto">
       <form
@@ -93,6 +94,8 @@ const UserForm = () => {
         className="flex flex-col w-full mx-4"
         action=""
       >
+        {/* Display the error message at the top of the form */}
+        {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
         <label className="text-slate-600 font-semibold mb-1" htmlFor="username">
           Username
         </label>
@@ -131,7 +134,10 @@ const UserForm = () => {
             type="email"
           />
           <label className="text-slate-600 font-semibold mb-1" htmlFor="title">
-            Password
+            Password{" "}
+            <span className="text-sm italic">
+              {user && "(*leave blank if dont want to update password)"}
+            </span>
           </label>
           <input
             {...register("password", {

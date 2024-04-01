@@ -13,7 +13,11 @@ const Notes = () => {
     data: notes,
     isLoading: notesLoading,
     isSuccess,
-  } = useGetNotesQuery();
+  } = useGetNotesQuery(undefined, {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
 
   if (notesLoading) {
     return (

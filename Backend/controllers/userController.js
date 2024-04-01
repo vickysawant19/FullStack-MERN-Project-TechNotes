@@ -10,7 +10,7 @@ const getUsers = async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -65,7 +65,7 @@ const updateUser = async (req, res) => {
 
   // Check if _id is provided
   if (!_id) {
-    return res.status(400).json({ error: "ID is required" });
+    return res.status(400).json({ message: "ID is required" });
   }
 
   try {
@@ -74,14 +74,16 @@ const updateUser = async (req, res) => {
 
     // Check if user exists
     if (!user) {
-      return res.status(404).json({ error: `User not found with id: ${_id}` });
+      return res
+        .status(404)
+        .json({ message: `User not found with id: ${_id}` });
     }
 
     // Check if username is provided and not taken by another user
     if (username && username !== user.username) {
       const duplicate = await User.findOne({ username }).exec();
       if (duplicate) {
-        return res.status(400).json({ error: "username already exists" });
+        return res.status(400).json({ message: "username already exists" });
       }
       user.username = username;
     }
@@ -89,7 +91,7 @@ const updateUser = async (req, res) => {
     if (email && email !== user.email) {
       const duplicateEmail = await User.findOne({ email }).exec();
       if (duplicateEmail) {
-        return res.status(400).json({ error: "Email already exists" });
+        return res.status(400).json({ message: "Email already exists" });
       }
       user.email = email;
     }
@@ -117,7 +119,7 @@ const updateUser = async (req, res) => {
     res.status(200).json(updatedUser);
   } catch (error) {
     console.error("Error updating user:", error);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -126,7 +128,7 @@ const deleteUser = async (req, res) => {
 
   // Check if _id is provided
   if (!_id) {
-    return res.status(400).json({ error: "ID not provided" });
+    return res.status(400).json({ message: "ID not provided" });
   }
   try {
     // Find the user by _id
@@ -134,7 +136,7 @@ const deleteUser = async (req, res) => {
 
     // Check if user exists
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     const notes = await Note.find({ user: _id }).exec();
@@ -150,7 +152,7 @@ const deleteUser = async (req, res) => {
     res.status(200).json({ message: `User deleted: ${user.username}` });
   } catch (error) {
     console.error("Error deleting user:", error);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -159,12 +161,12 @@ const getUser = expressAsyncHandler(async (req, res) => {
   try {
     const user = await User.findById(userId).select("-password");
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
     res.status(200).json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ message: "Server error" });
   }
 });
 

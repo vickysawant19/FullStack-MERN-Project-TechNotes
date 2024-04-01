@@ -9,7 +9,6 @@ import { selectUserById } from "../users/usersApiSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 const Note = ({ noteId }) => {
-  const { data } = useGetNotesQuery();
   const note = useSelector((state) => selectNoteById(state, noteId));
   const user = useSelector((state) => selectUserById(state, note.user));
   const navigate = useNavigate();

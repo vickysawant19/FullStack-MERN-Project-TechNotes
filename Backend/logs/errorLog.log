@@ -23,3 +23,8 @@
 20240331	16:28:03	77bfffd6-e8e3-4dbe-883a-994bf3ee9ba6	TypeError	res is not a function	POST	/notes	http://localhost:5173
 20240331	16:31:51	3c9421db-3c09-4275-976d-49d2c8854072	TypeError	res is not a function	POST	/notes	http://localhost:5173
 20240331	16:32:50	85c91387-e240-4c17-8aff-330d4d32f218	TypeError	res is not a function	POST	/notes	http://localhost:5173
+20240401	18:09:29	bc4b007a-8e4b-4d6c-83f5-84c068243f88	Error	Not allowed by origin	GET	/notes/recent	http://192.168.1.7:5173
+20240401	18:09:29	8188de80-35e3-41ad-9f13-5343c61e5082	Error	Not allowed by origin	GET	/notes	http://192.168.1.7:5173
+20240401	18:09:29	db655ae1-6218-4e95-8e39-7521d8e7e6cc	Error	Not allowed by origin	GET	/notes/featured	http://192.168.1.7:5173
+20240401	18:09:29	a80f10ff-764b-4143-b9ca-85997309211d	Error	Not allowed by origin	GET	/notes/user/66099feffd301034d24eb7cf	http://192.168.1.7:5173
+20240401	18:09:29	e9677da5-d5ae-44bd-a4f0-75f37c8122a1	Error	Not allowed by origin	GET	/users	http://192.168.1.7:5173

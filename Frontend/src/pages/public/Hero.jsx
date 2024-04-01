@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [data, setData] = useState();
+
   return (
     <div className="h-full">
+      {data}
       <section className="max-w-screen-xl mx-auto ">
         <h1 className=" text-4xl text-wrap mx-5 text-center font-bold text-orange-600 mb-20 mt-10">
           Welcome to D&D Electronics Office TechNotes!

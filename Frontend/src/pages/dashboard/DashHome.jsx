@@ -12,7 +12,10 @@ import {
 
 const DashHome = () => {
   const { data: recentNotes, isLoading: recentLoading } =
-    useGetRecentNotesQuery();
+    useGetRecentNotesQuery(undefined, {
+      pollingInterval: 60000,
+      refetchOnMountOrArgChange: true,
+    });
   const { data: featuredNotes, isLoading: featuredLoading } =
     useGetFeaturedNotesQuery();
   const { data: userNotes, isLoading: userLoading } = useGetUserNotesQuery(

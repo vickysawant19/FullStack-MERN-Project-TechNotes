@@ -14,7 +14,7 @@ const getNote = expressAsyncHandler(async (req, res) => {
     res.status(200).send(note);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "server error" });
+    res.status(500).json({ message: "server error" });
   }
 });
 
@@ -24,7 +24,7 @@ const getAllNote = expressAsyncHandler(async (req, res) => {
     res.status(200).send(notes);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "server error" });
+    res.status(500).json({ message: "server error" });
   }
 });
 
@@ -42,7 +42,7 @@ const createNote = expressAsyncHandler(async (req, res) => {
     return res.status(200).send(newNote);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "server error" });
+    res.status(500).json({ message: "server error" });
   }
 });
 
@@ -51,7 +51,7 @@ const updateNote = async (req, res) => {
 
   // Check if _id is provided
   if (!_id) {
-    return res.status(400).json({ error: "ID is required" });
+    return res.status(400).json({ message: "ID is required" });
   }
 
   try {
@@ -60,7 +60,7 @@ const updateNote = async (req, res) => {
 
     // Check if note exists
     if (!note) {
-      return res.status(404).json({ error: "Note not found" });
+      return res.status(404).json({ message: "Note not found" });
     }
 
     // Update note fields if provided
@@ -81,7 +81,7 @@ const updateNote = async (req, res) => {
     res.status(200).json(updatedNote);
   } catch (error) {
     console.error("Error updating note:", error);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -95,7 +95,7 @@ const deleteNote = expressAsyncHandler(async (req, res) => {
     res.status(200).json({ message: "note deleted" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "server error" });
+    res.status(500).json({ message: "server error" });
   }
 });
 

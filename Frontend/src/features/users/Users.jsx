@@ -6,7 +6,11 @@ import User from "./User";
 import { Link } from "react-router-dom";
 
 const Users = () => {
-  const { data, isLoading, error } = useGetUsersQuery();
+  const { data, isLoading, error } = useGetUsersQuery(undefined, {
+    pollingInterval: 60000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
 
   const users = useSelector(selectAllUsers);
 

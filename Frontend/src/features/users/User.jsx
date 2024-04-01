@@ -28,10 +28,16 @@ const User = ({ userId }) => {
           <div className="flex items-center gap-4">
             <div className="w-20 h-20 bg-violet-700 rounded-full"></div>
             <div className="text-xl text-slate-900 font-semibold">
-              {user.username}
-              <div className="text-sm text-slate-600">
+              <h1 className="text-md">{user.username}</h1>
+              <h2 className="text-sm">{user.email}</h2>
+              <div className="text-sm text-slate-600 flex gap-2">
                 {user.roles.map((role, index) => (
-                  <p key={index}>{role + " "}</p>
+                  <p
+                    className="border px-2 py-1 mt-1 rounded-xl bg-green-300"
+                    key={index}
+                  >
+                    {role}
+                  </p>
                 ))}
               </div>
             </div>
