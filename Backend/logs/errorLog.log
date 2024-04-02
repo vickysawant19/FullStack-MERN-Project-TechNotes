@@ -28,3 +28,22 @@
 20240401	18:09:29	db655ae1-6218-4e95-8e39-7521d8e7e6cc	Error	Not allowed by origin	GET	/notes/featured	http://192.168.1.7:5173
 20240401	18:09:29	a80f10ff-764b-4143-b9ca-85997309211d	Error	Not allowed by origin	GET	/notes/user/66099feffd301034d24eb7cf	http://192.168.1.7:5173
 20240401	18:09:29	e9677da5-d5ae-44bd-a4f0-75f37c8122a1	Error	Not allowed by origin	GET	/users	http://192.168.1.7:5173
+20240402	20:24:27	36431616-554f-4f21-9dc5-85d05cae5f74	Too many requests: Too many login attempts from this IP	POST	/	undefined
+20240402	20:24:27	3cc0b700-b8e6-46c4-8ef7-d5b54b5737ea	Too many requests: Too many login attempts from this IP	POST	/	undefined
+20240402	20:43:39	5e065876-add1-48b6-b038-24b49ae711f7	SyntaxError	Bad control character in string literal in JSON at position 17	POST	/auth/	undefined
+20240402	21:21:49	1a9c6f87-5ee0-4a7a-8c57-a9d05259e382	TypeError	Cannot read properties of undefined (reading 'TOKEN')	POST	/auth/	undefined
+20240402	21:21:54	7066e8d4-3a6f-4abd-bdb6-49db1a873d17	TypeError	Cannot read properties of undefined (reading 'TOKEN')	POST	/auth/	undefined
+20240402	23:38:37	83e6c8ce-b857-498a-af65-8655e0014df0	TypeError	authHeader.spilt is not a function	POST	/users	undefined
+20240402	23:38:42	ffdcacf1-fccd-4f73-ba12-9cc73650871f	TypeError	authHeader.spilt is not a function	POST	/users	undefined
+20240402	23:46:36	e898bcb4-2abc-4774-957c-57dc83752885	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined
+20240402	23:46:43	f51bb0d7-1e78-41a3-804f-6e65f4e51add	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined
+20240402	23:46:48	f0af4d39-ed60-4b96-9db2-b7eb3cb35cd3	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined
+20240402	23:46:56	d7b5e99a-e426-4e08-88dc-e1bc45fbeeb9	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined
+20240402	23:46:57	ea5e929b-bf32-4fc9-be27-e4ffb2b063ce	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined
+20240402	23:46:58	a56ab4f1-e415-4438-bc5d-9f6571397a93	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined
+20240402	23:46:58	0fabd457-d19f-4834-b1e9-4e5e2e032f5c	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined
+20240402	23:48:23	55f2c359-0b60-49d5-8826-3c210b250e8a	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined
+20240402	23:50:19	026e6570-1494-4319-aedf-1e9ce3abc5e4	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined
+20240402	23:51:29	7fa11a1f-c688-4235-b776-878b0b28debf	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined
+20240402	23:52:10	a49f29c0-e076-4267-8747-5642abae9747	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined
+20240402	23:52:34	eb0e1132-0245-4037-922a-c546993c6bb0	TypeError	Cannot read properties of undefined (reading 'username')	POST	/users	undefined

@@ -33,6 +33,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use("/", require("./routes/root"));
+app.use("/auth", require("./routes/auth"));
 app.use("/users", require("./routes/users"));
 app.use("/notes", require("./routes/notes"));
 
