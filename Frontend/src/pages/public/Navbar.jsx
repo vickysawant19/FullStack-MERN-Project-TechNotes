@@ -6,7 +6,7 @@ const Navbar = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    setIsLogin(true);
+    setIsLogin(false);
   }, [pathname]);
 
   const navContentDash = (
@@ -35,7 +35,7 @@ const Navbar = () => {
   const navContentLogin = (
     <div className=" flex gap-2 ">
       <Link
-        className="hover:text-gray-300 text-slate-900 font-semibold   border p-2 rounded-e-lg rounded-b-lg"
+        className="hover:text-gray-300 hover:bg-slate-600 text-slate-900 font-semibold   border p-2 rounded-e-lg rounded-b-lg"
         to={"login"}
       >
         Login

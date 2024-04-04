@@ -47,6 +47,7 @@ const login = asyncHandler(async (req, res) => {
     sameSite: "None",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
+
   res.json({ accessToken });
 });
 
@@ -80,7 +81,7 @@ const refresh = asyncHandler(async (req, res) => {
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "10s" }
+        { expiresIn: "60s" }
       );
 
       res.json({ accessToken });
