@@ -8,11 +8,15 @@ import {
   useUpdateNoteMutation,
 } from "./notesApiSlice";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import { selectAllUsers } from "../users/usersApiSlice";
 
 const NoteForm = () => {
   const { id } = useParams();
 
   const note = useSelector((state) => selectNoteById(state, id));
+  const { userid } = useAuth();
+
   const [errorMessage, setErrorMessage] = useState(""); // State to store the error message
 
   const {
@@ -45,7 +49,7 @@ const NoteForm = () => {
     setErrorMessage("");
     try {
       if (!note) {
-        const newData = { ...data, user: "66099feffd301034d24eb7cf" };
+        const newData = { ...data, user: userid };
         const result = await addNote(newData);
         if (result.error) {
           setErrorMessage(result.error.data.message); // Set the error message

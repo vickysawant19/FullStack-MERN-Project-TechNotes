@@ -22,14 +22,15 @@ const login = asyncHandler(async (req, res) => {
 
   const accessToken = jwt.sign(
     {
-      userInfo: {
+      UserInfo: {
+        userid: foundUser._id,
         username: foundUser.username,
         roles: foundUser.roles,
       },
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "60s",
+      expiresIn: "20s",
     }
   );
 
@@ -43,8 +44,8 @@ const login = asyncHandler(async (req, res) => {
 
   res.cookie("jwt", refreshToken, {
     httpOnly: true,
-    secure: true,
-    sameSite: "None",
+    // secure: true,  //for production
+    // sameSite: "None",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -54,7 +55,9 @@ const login = asyncHandler(async (req, res) => {
 //refresh
 const refresh = asyncHandler(async (req, res) => {
   const cookies = req.cookies;
+
   if (!cookies?.jwt) {
+    console.log("no cookies");
     return res.status(401).json({ message: "Unauthorized" });
   }
   const refreshToken = cookies.jwt;
@@ -64,7 +67,7 @@ const refresh = asyncHandler(async (req, res) => {
     process.env.REFRESH_TOKEN_SECRET,
     asyncHandler(async (err, decoded) => {
       if (err) {
-        return res.status(403).json({ message: "Forbidder" });
+        return res.status(403).json({ message: "Forbidden" });
       }
 
       const foundUser = await User.findOne({ username: decoded.username });
@@ -76,6 +79,7 @@ const refresh = asyncHandler(async (req, res) => {
       const accessToken = jwt.sign(
         {
           UserInfo: {
+            userid: foundUser._id,
             username: foundUser.username,
             roles: foundUser.roles,
           },

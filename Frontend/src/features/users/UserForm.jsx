@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import PulseLoader from "react-spinners/PulseLoader";
 
 import { useForm } from "react-hook-form";
 import {
@@ -61,6 +62,7 @@ const UserForm = () => {
     data.active = data.active === "true";
     setErrorMessage("");
     try {
+      console.log(data);
       if (!user) {
         const result = await addUser(data);
 
@@ -87,6 +89,13 @@ const UserForm = () => {
     }
   };
 
+  if (addLoading || updateLoading)
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center">
+        <PulseLoader />
+      </div>
+    );
+
   return (
     <div className="w-full flex justify-center mt-10 min-h-screen max-w-screen-md mx-auto">
       <form
@@ -101,7 +110,7 @@ const UserForm = () => {
         </label>
         <input
           {...register("username", {
-            required: true,
+            required: "Username required",
             minLength: 5,
             pattern: {
               value: /^[a-z0-9]+$/,
@@ -109,7 +118,6 @@ const UserForm = () => {
                 "Username must contain only lowercase letters and numbers",
             },
           })}
-          name="username"
           className=" p-1 
             rounded"
           type="username"
@@ -117,40 +125,50 @@ const UserForm = () => {
         {errors.username && (
           <p className="text-red-500">{errors.username.message}</p>
         )}
-        <>
-          <label
-            className="text-slate-600 font-semibold mb-1 mt-4"
-            htmlFor="email"
-          >
-            Email
-          </label>
-          <input
-            {...register("email", {
-              required: true,
-              minLength: 5,
-            })}
-            name="email"
-            className=" p-1 mb-4  rounded"
-            type="email"
-          />
-          <label className="text-slate-600 font-semibold mb-1" htmlFor="title">
-            Password{" "}
-            <span className="text-sm italic">
-              {user && "(*leave blank if dont want to update password)"}
-            </span>
-          </label>
-          <input
-            {...register("password", {
-              required: user ? false : true,
-              minLength: 5,
-            })}
-            name="password"
-            className=" p-1 mb-4  rounded"
-            type="password"
-          />
-        </>
 
-        <div className="flex flex-col">
+        <label
+          className="text-slate-600 font-semibold mb-1 mt-4"
+          htmlFor="email"
+        >
+          Email
+        </label>
+        <input
+          {...register("email", {
+            required: "Email required",
+            minLength: 5,
+          })}
+          className=" p-1 rounded"
+          type="email"
+        />
+        {errors.email && (
+          <p className="text-red-500 ">{errors.email.message}</p>
+        )}
+        <label
+          className="text-slate-600 font-semibold mb-1 mt-4"
+          htmlFor="title"
+        >
+          Password{" "}
+          <span className="text-sm italic">
+            {user && "(*leave blank if dont want to update password)"}
+          </span>
+        </label>
+
+        <input
+          {...register("password", {
+            required: user ? false : "Password required",
+            minLength: {
+              value: 5,
+              message: "Password must be at least 5 characters long",
+            },
+          })}
+          className=" p-1   rounded"
+          type="password"
+        />
+        {errors.password && (
+          <p className="text-red-500 mb-4">{errors.password.message}</p>
+        )}
+
+        <div className="flex flex-col mt-4">
           <label className="text-slate-600 font-semibold" htmlFor="roles">
             Roles
           </label>
@@ -163,7 +181,7 @@ const UserForm = () => {
             />
             <span className="ml-2">Admin</span>
           </label>
-          <label className="inline-flex items-center mb-2">
+          <label className="inline-flex items-center mb-2 ">
             <input
               type="checkbox"
               {...register("roles")}
@@ -182,6 +200,7 @@ const UserForm = () => {
             <span className="ml-2">Employee</span>
           </label>
         </div>
+        {errors.roles && <p className="text-red-500">{errors.roles.message}</p>}
 
         <label className="text-slate-600 font-semibold" htmlFor="completed">
           Active
@@ -189,12 +208,13 @@ const UserForm = () => {
         <select
           {...register("active", { required: true })}
           className="p-2 rounded mb-4"
-          name="completed"
-          id=""
         >
-          <option value="true">Active</option>
-          <option value="false">Not Active</option>
+          <option value={true}>Active</option>
+          <option value={false}>Not Active</option>
         </select>
+        {errors.active && (
+          <p className="text-red-500">{errors.active.message}</p>
+        )}
         <button className="border hover:bg-orange-500 hover:text-white bg-orange-300 rounded p-2 mb-4">
           Save User
         </button>

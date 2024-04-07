@@ -6,6 +6,7 @@ import Note from "./Note";
 import { Link } from "react-router-dom";
 import { useGetUserNotesQuery } from "./featuredNotesApi";
 import { useGetUsersQuery } from "../users/usersApiSlice";
+import useAuth from "../../hooks/useAuth";
 
 const Notes = () => {
   const { data } = useGetUsersQuery();
@@ -18,6 +19,8 @@ const Notes = () => {
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   });
+
+  const { isManager, isAdmin } = useAuth();
 
   if (notesLoading) {
     return (
@@ -56,7 +59,9 @@ const Notes = () => {
                   User
                 </th>
 
-                <th className="border border-gray-400 px-4 py-2">.....</th>
+                {(isManager || isAdmin) && (
+                  <th className="border border-gray-400 px-4 py-2">.....</th>
+                )}
               </tr>
             </thead>
             <tbody>

@@ -10,19 +10,27 @@ import {
   useGetUserNotesQuery,
 } from "../../features/notes/featuredNotesApi";
 
+import { useSelector } from "react-redux";
+
+import useAuth from "../../hooks/useAuth";
+import { selectAllUsers } from "../../features/users/usersApiSlice";
+import useTitle from "../../hooks/useTitle";
+
 const DashHome = () => {
+  useTitle("Home");
   const { data: recentNotes, isLoading: recentLoading } =
     useGetRecentNotesQuery(undefined, {
       pollingInterval: 60000,
       refetchOnMountOrArgChange: true,
     });
+
   const { data: featuredNotes, isLoading: featuredLoading } =
     useGetFeaturedNotesQuery();
-  const { data: userNotes, isLoading: userLoading } = useGetUserNotesQuery(
-    "66099feffd301034d24eb7cf"
-  );
+  const { userid } = useAuth();
 
-  // console.log(recentNotes, featuredNotes, userNotes);
+  const { data: userNotes, isLoading: userLoading } =
+    useGetUserNotesQuery(userid);
+
   var settings = {
     dots: false,
     infinite: false,

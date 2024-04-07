@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import Hero from "./pages/public/Hero";
+import useTitle from "./hooks/useTitle";
 
 function App() {
-  const dispatch = useDispatch();
+  useTitle("TechNote Electronics");
 
   return (
     <>

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useLoginUserMutation } from "../../features/auth/authApiSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken, setAuthToken } from "../../features/auth/authSlice";
+import usePersist from "../../hooks/usePersist.js";
 
 const Login = () => {
   const { register, handleSubmit } = useForm({
@@ -12,21 +13,25 @@ const Login = () => {
   });
 
   const [loginUser, { data, isLoading, isSuccess }] = useLoginUserMutation();
+  const [persist, setPersist] = usePersist();
+
   const dispatch = useDispatch();
 
   const tokenData = useSelector(selectToken);
   const navigate = useNavigate();
 
+  // const { data: refreshData, error } = useRefreshUserQuery();
+
   const handleLogin = async (data) => {
     try {
       const authData = await loginUser(data).unwrap();
       if (authData) {
-        dispatch(setAuthToken(authData.accessToken));
+        dispatch(setAuthToken(authData));
       }
       console.log(authData);
-      navigate("/dash/users");
+      navigate("/dash");
     } catch (error) {
-      console.log(error.data.message);
+      console.log(error?.data?.message);
     }
   };
 
@@ -98,6 +103,17 @@ const Login = () => {
               >
                 Sign in
               </button>
+              <label className="mt-2 flex gap-2" htmlFor="">
+                <input
+                  onChange={(e) => {
+                    setPersist((prev) => !prev);
+                  }}
+                  checked={persist}
+                  className=""
+                  type="checkbox"
+                />
+                Trust this device
+              </label>
             </div>
           </form>
 

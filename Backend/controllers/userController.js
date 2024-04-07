@@ -28,14 +28,20 @@ const createUser = async (req, res) => {
   }
 
   try {
-    // find dublicate
-    const dublicate = await User.findOne({ email }).exec();
+    // find dublicate email
+    const dublicate = await User.findOne({ email })
+      .collation({ locale: "en", strength: 2 })
+      .lean()
+      .exec();
     if (dublicate) {
       return res.status(400).json({ message: "Email already exits" });
     }
 
     // Check if duplicate username exists
-    const duplicateUsername = await User.findOne({ username }).exec();
+    const duplicateUsername = await User.findOne({ username })
+      .collation({ locale: "en", strength: 2 })
+      .lean()
+      .exec();
     if (duplicateUsername) {
       return res.status(400).json({ message: "Username already exists" });
     }
@@ -81,7 +87,10 @@ const updateUser = async (req, res) => {
 
     // Check if username is provided and not taken by another user
     if (username && username !== user.username) {
-      const duplicate = await User.findOne({ username }).exec();
+      const duplicate = await User.findOne({ username })
+        .collation({ locale: "en", strength: 2 })
+        .lean()
+        .exec();
       if (duplicate) {
         return res.status(400).json({ message: "username already exists" });
       }
@@ -89,7 +98,10 @@ const updateUser = async (req, res) => {
     }
     // Check if email is provided and not taken by another user
     if (email && email !== user.email) {
-      const duplicateEmail = await User.findOne({ email }).exec();
+      const duplicateEmail = await User.findOne({ email })
+        .collation({ locale: "en", strength: 2 })
+        .lean()
+        .exec();
       if (duplicateEmail) {
         return res.status(400).json({ message: "Email already exists" });
       }

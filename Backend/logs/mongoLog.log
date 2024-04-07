@@ -5,3 +5,5 @@
 20240328	11:32:32	3a7541f4-ff27-4381-8da1-31e37b2ecc32	undefined: ECONNREFUSED	querySrv	_mongodb._tcp.cluster0.wahptxx.mongodb.net
 20240328	12:58:39	034559ff-6c94-43b4-862a-9fe4b275df08	undefined: undefined	undefined	undefined
 20240328	18:59:19	685e34fb-2e37-4c4d-b7a7-e2ec926caf37	undefined: undefined	undefined	undefined
+20240406	13:48:14	cf8114d4-42be-4c5f-af81-6b34d2945213	undefined: ECONNREFUSED	querySrv	_mongodb._tcp.cluster0.wahptxx.mongodb.net
+20240406	13:48:16	6b47a278-21d6-4578-9676-3e473308854f	undefined: ECONNREFUSED	querySrv	_mongodb._tcp.cluster0.wahptxx.mongodb.net

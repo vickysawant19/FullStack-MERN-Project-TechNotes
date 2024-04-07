@@ -8,7 +8,7 @@ const corsOption = {
       callback(new Error("Not allowed by origin"), false);
     }
   },
-  Credential: true,
+  credentials: true,
   optionSuccessStatus: 200,
 };
 

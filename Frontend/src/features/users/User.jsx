@@ -1,10 +1,20 @@
-import React from "react";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
-import { selectUserById, useDeleteUserMutation } from "./usersApiSlice";
+import {
+  selectUserById,
+  useDeleteUserMutation,
+  useGetUsersQuery,
+} from "./usersApiSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 const User = ({ userId }) => {
-  const user = useSelector((state) => selectUserById(state, userId));
+  const { user } = useGetUsersQuery("userList", {
+    selectFromResult: ({ data }) => ({
+      user: data?.entities[userId],
+    }),
+  });
+
+  // const user = useSelector((state) => selectUserById(state, userId));
   const navigate = useNavigate();
   const [deleteUser, { isError, isLoading }] = useDeleteUserMutation();
 
@@ -67,5 +77,5 @@ const User = ({ userId }) => {
     </>
   );
 };
-
-export default User;
+const memorizedUser = memo(User);
+export default memorizedUser;

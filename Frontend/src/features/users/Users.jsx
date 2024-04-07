@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import User from "./User";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Users = () => {
   const { data, isLoading, error } = useGetUsersQuery(undefined, {
@@ -13,6 +14,7 @@ const Users = () => {
   });
 
   const users = useSelector(selectAllUsers);
+  const { isAdmin, isManager } = useAuth();
 
   if (isLoading) {
     return (
@@ -25,12 +27,14 @@ const Users = () => {
   return (
     <div className="w-full max-w-screen-xl mx-auto min-h-screen">
       <div className="w-full flex justify-end">
-        <Link
-          to={"new"}
-          className="border hover:border-orange-900 text-slate-100 hover:text-orange-900 hover:bg-slate-100 font-semibold bg-orange-400 p-2 rounded m-1"
-        >
-          New User+
-        </Link>
+        {(isManager || isAdmin) && (
+          <Link
+            to={"new"}
+            className="border hover:border-orange-900 text-slate-100 hover:text-orange-900 hover:bg-slate-100 font-semibold bg-orange-400 p-2 rounded m-1"
+          >
+            New User+
+          </Link>
+        )}
       </div>
       <table className="w-full ">
         <thead>
