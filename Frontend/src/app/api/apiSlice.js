@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setAuthToken, clearAuthToken } from "../../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://dandd-technotes-api.onrender.com",
+  baseUrl: "https://localhost:3000",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     let token = getState().auth.authToken?.accessToken;
