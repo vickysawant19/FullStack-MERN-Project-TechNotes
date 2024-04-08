@@ -1,10 +1,10 @@
 services:
   - type: static
-    name: my-vite-app
+    name: technotes
     env: static
     build:
       command: npm run build
-      output_dir: dist
+      output_dir: .
     routes:
       - type: asset
         attribute: extension
