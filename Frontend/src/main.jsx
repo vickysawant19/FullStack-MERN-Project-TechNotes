@@ -29,6 +29,12 @@ import PersistLogin from "./features/auth/PersistLogin.jsx";
 import { ROLES } from "./config/roles.js";
 import RequireAuth from "./features/auth/RequireAuth.jsx";
 
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+
+if (process.env.NODE_ENV === "production") {
+  disableReactDevTools();
+}
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="" element={<Layout />}>
