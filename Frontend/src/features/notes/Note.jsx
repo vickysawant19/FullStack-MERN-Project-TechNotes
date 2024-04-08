@@ -9,6 +9,7 @@ import { selectUserById } from "../users/usersApiSlice";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { memo } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const Note = ({ noteId }) => {
   const { note } = useGetNotesQuery("notesList", {
@@ -26,7 +27,9 @@ const Note = ({ noteId }) => {
   const handleDelete = async () => {
     await deleteNote({ _id: note.id });
   };
+
   const { isManager, isAdmin } = useAuth();
+
   if (!note) {
     return null;
   } else {
@@ -65,7 +68,11 @@ const Note = ({ noteId }) => {
                 onClick={handleDelete}
                 className="text-red-600 font-bold border bg-gray-300 p-2 rounded-xl hover:text-red-100 hover:bg-red-800"
               >
-                Delete
+                {deleteLoading ? (
+                  <PulseLoader color="white" size={10} />
+                ) : (
+                  "Delete"
+                )}
               </button>
             </td>
           )}

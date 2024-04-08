@@ -10,8 +10,10 @@ import {
   useGetUsersQuery,
   useUpdateUserMutation,
 } from "./usersApiSlice";
+import useTitle from "../../hooks/useTitle";
 
 const UserForm = () => {
+  useTitle("New User");
   const { id } = useParams();
   const [errorMessage, setErrorMessage] = useState(""); // State to store the error message
 
@@ -89,12 +91,12 @@ const UserForm = () => {
     }
   };
 
-  if (addLoading || updateLoading)
-    return (
-      <div className="w-full min-h-screen flex items-center justify-center">
-        <PulseLoader />
-      </div>
-    );
+  // if (addLoading || updateLoading)
+  //   return (
+  //     <div className="w-full min-h-screen flex items-center justify-center">
+  //       <PulseLoader />
+  //     </div>
+  //   );
 
   return (
     <div className="w-full flex justify-center mt-10 min-h-screen max-w-screen-md mx-auto">
@@ -216,7 +218,11 @@ const UserForm = () => {
           <p className="text-red-500">{errors.active.message}</p>
         )}
         <button className="border hover:bg-orange-500 hover:text-white bg-orange-300 rounded p-2 mb-4">
-          Save User
+          {addLoading || updateLoading ? (
+            <PulseLoader color="white" />
+          ) : (
+            "Save User"
+          )}
         </button>
       </form>
     </div>

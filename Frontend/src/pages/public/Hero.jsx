@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const Hero = () => {
   const [data, setData] = useState();
+  const { username } = useAuth();
 
   return (
     <div className="h-full">

@@ -10,8 +10,11 @@ import {
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { selectAllUsers } from "../users/usersApiSlice";
+import PulseLoader from "react-spinners/PulseLoader";
+import useTitle from "../../hooks/useTitle";
 
 const NoteForm = () => {
+  useTitle("New Note");
   const { id } = useParams();
 
   const note = useSelector((state) => selectNoteById(state, id));
@@ -143,7 +146,11 @@ const NoteForm = () => {
         )}
 
         <button className="border hover:bg-orange-500 hover:text-white bg-orange-300 rounded p-2 mb-4">
-          Save Note
+          {updateLoading || addLoading ? (
+            <PulseLoader color="white" />
+          ) : (
+            "Save Note"
+          )}
         </button>
       </form>
     </div>

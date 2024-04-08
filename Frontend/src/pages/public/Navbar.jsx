@@ -99,13 +99,13 @@ const Navbar = () => {
           isMenu ? "" : "scale-0"
         } absolute w-1/2 top-14 origin-top-right duration-300 transition-transform right-0 bg-orange-200 h-20 p-4 flex justify-between items-center rounded-xl shadow-xl `}
       >
-        <div>
-          <h1 className="text-red-900 font-semibold">Welcome, {username}</h1>
-          <p className="text-gray-700"> Roles - {status}</p>
+        <div className="">
+          <h1 className="text-red-900 font-bold">Welcome, {username}</h1>
+          <p className="text-gray-700 font-semibold"> Roles - {status}</p>
         </div>
         <div>
           <button
-            className="border rounded-xl shadow-lg p-2 bg-red-400 text-white font-semibold"
+            className=" border-2 rounded-xl shadow-lg p-2 hover:bg-red-700 bg-red-600 text-white font-semibold"
             onClick={handleLogout}
           >
             Logout

@@ -1,15 +1,14 @@
 import React from "react";
-import { selectAllNotes, useGetNotesQuery } from "./notesApiSlice";
-import { useSelector } from "react-redux";
+import { useGetNotesQuery } from "./notesApiSlice";
 
 import Note from "./Note";
 import { Link } from "react-router-dom";
-import { useGetUserNotesQuery } from "./featuredNotesApi";
-import { useGetUsersQuery } from "../users/usersApiSlice";
 import useAuth from "../../hooks/useAuth";
+import PulseLoader from "react-spinners/PulseLoader";
+import useTitle from "../../hooks/useTitle";
 
 const Notes = () => {
-  const { data } = useGetUsersQuery();
+  useTitle("Notes");
   const {
     data: notes,
     isLoading: notesLoading,
@@ -25,7 +24,7 @@ const Notes = () => {
   if (notesLoading) {
     return (
       <div className="flex items-center justify-center w-full min-h-screen">
-        Loading...
+        <PulseLoader />
       </div>
     );
   }

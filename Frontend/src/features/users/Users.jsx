@@ -5,8 +5,10 @@ import { useSelector } from "react-redux";
 import User from "./User";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useTitle from "../../hooks/useTitle";
 
 const Users = () => {
+  useTitle("Users");
   const { data, isLoading, error } = useGetUsersQuery(undefined, {
     pollingInterval: 60000,
     refetchOnFocus: true,

@@ -6,13 +6,15 @@ import { useLoginUserMutation } from "../../features/auth/authApiSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken, setAuthToken } from "../../features/auth/authSlice";
 import usePersist from "../../hooks/usePersist.js";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const Login = () => {
   const { register, handleSubmit } = useForm({
     defaultValues: {},
   });
 
-  const [loginUser, { data, isLoading, isSuccess }] = useLoginUserMutation();
+  const [loginUser, { data, isLoading, isSuccess, error }] =
+    useLoginUserMutation();
   const [persist, setPersist] = usePersist();
 
   const dispatch = useDispatch();
@@ -35,6 +37,14 @@ const Login = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center">
+        <PulseLoader />
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="flex mt-10 min-h-screen flex-1  flex-col justify-start px-6  lg:px-8">
@@ -46,6 +56,9 @@ const Login = () => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form onSubmit={handleSubmit(handleLogin)} className="space-y-6">
+            <p className="w-full text-red-600 text-center">
+              {error && error.data.message}
+            </p>
             <div>
               <label
                 htmlFor="username"
@@ -65,7 +78,6 @@ const Login = () => {
                 />
               </div>
             </div>
-
             <div>
               <div className="flex items-center justify-between">
                 <label
@@ -95,7 +107,6 @@ const Login = () => {
                 />
               </div>
             </div>
-
             <div>
               <button
                 type="submit"
@@ -117,7 +128,7 @@ const Login = () => {
             </div>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
+          {/* <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
             <Link
               to={"/signup"}
@@ -125,7 +136,7 @@ const Login = () => {
             >
               Register
             </Link>
-          </p>
+          </p> */}
         </div>
       </div>
     </>

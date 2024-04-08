@@ -10,10 +10,12 @@ import {
   useGetUserNotesQuery,
 } from "../../features/notes/featuredNotesApi";
 
-import { useSelector } from "react-redux";
+import PulseLoader from "react-spinners/PulseLoader";
+
+// import { useSelector } from "react-redux";
+// import { selectAllUsers } from "../../features/users/usersApiSlice";
 
 import useAuth from "../../hooks/useAuth";
-import { selectAllUsers } from "../../features/users/usersApiSlice";
 import useTitle from "../../hooks/useTitle";
 
 const DashHome = () => {
@@ -64,10 +66,13 @@ const DashHome = () => {
       //   },
     ],
   };
+
   if (userLoading || featuredLoading || recentLoading) {
     return (
       <>
-        <div>Loading..</div>
+        <div className="w-full min-h-screen flex  items-center justify-center">
+          <PulseLoader />
+        </div>
       </>
     );
   }

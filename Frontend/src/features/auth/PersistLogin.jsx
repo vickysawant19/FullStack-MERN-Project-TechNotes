@@ -4,6 +4,7 @@ import { useRefreshUserMutation } from "./authApiSlice.js.js";
 import usePersist from "../../hooks/usePersist.js";
 import { useSelector } from "react-redux";
 import { selectToken } from "./authSlice.js";
+import PulseLoader from "react-spinners/PulseLoader";
 
 import React from "react";
 
@@ -46,7 +47,11 @@ const PersistLogin = () => {
     content = <Outlet />;
   } else if (isLoading) {
     console.log("loading...");
-    content = <p>loading...</p>;
+    content = (
+      <div className="w-full min-h-screen flex items-center justify-center">
+        <PulseLoader />
+      </div>
+    );
   } else if (isError) {
     console.log("error");
     content = (
